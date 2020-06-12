@@ -2,10 +2,16 @@ CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) DEFAULT NULL,
   `password` varchar(100) DEFAULT NULL,
+  `perms` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
 
 
 INSERT INTO springboot.`user`
-(id, name, password)
-VALUES(1, 'jake', '123');
+(id, name, password, perms)
+VALUES(1, 'jake', '123', 'user:add');
+INSERT INTO springboot.`user`
+(id, name, password, perms)
+VALUES(2, 'rose', '123', 'user:update');
+
