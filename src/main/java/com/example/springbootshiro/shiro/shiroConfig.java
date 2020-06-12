@@ -33,7 +33,8 @@ public class shiroConfig {
         map.put("/login","anon");
         map.put("/dologin","anon");
         map.put("/index","anon");
-        map.put("/add","perms[user=add]");
+        map.put("/add","perms[user:add]");
+        map.put("/update","perms[user:update]");
         map.put("/**","authc");
         shiroFilterFactoryBean.setLoginUrl("/login");
         shiroFilterFactoryBean.setUnauthorizedUrl("/noauthc");

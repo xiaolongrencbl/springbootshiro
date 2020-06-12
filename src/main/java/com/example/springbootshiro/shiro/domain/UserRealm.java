@@ -1,10 +1,14 @@
 package com.example.springbootshiro.shiro.domain;
 
 import com.example.springbootshiro.shiro.dao.UserDao;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
+import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.SQLOutput;
@@ -18,7 +22,18 @@ public class UserRealm extends AuthorizingRealm {
     @Override
     protected   AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         System.out.println("authorization--------授权权限----");
-        return null;
+        SimpleAuthorizationInfo info=new SimpleAuthorizationInfo();
+
+        Subject subject= SecurityUtils.getSubject();
+        User users=(User)subject.getPrincipal();
+        User user=userDao.findUserByName(users.getName());
+        System.out.println(user.getPerms());
+
+//        if(user==null){
+//            return null;
+//        }
+        info.addStringPermission(user.getPerms());
+        return info;
     }
 
     @Override
@@ -37,6 +52,6 @@ public class UserRealm extends AuthorizingRealm {
         }
 
         //判断密码
-        return new SimpleAuthenticationInfo("",user.getPassword(),"");
+        return new SimpleAuthenticationInfo(user,user.getPassword(),"");
     }
 }
