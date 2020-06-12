@@ -1,5 +1,6 @@
 package com.example.springbootshiro.shiro;
 
+import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import com.example.springbootshiro.shiro.domain.UserRealm;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
@@ -56,5 +57,10 @@ public class shiroConfig {
     @Bean("userRealm")
     public UserRealm getReal(){
         return new UserRealm();
+    }
+
+    @Bean
+    public ShiroDialect getShiroDialect(){
+            return new ShiroDialect();
     }
 }
